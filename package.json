@@ -1,5 +1,5 @@
 {
-  "name": "rl_coach",
+  "name": "rl_whiteboard",
   "version": "0.2.0",
   "description": "A simple yet functional rocket league coacher",
   "main": "index.html",
