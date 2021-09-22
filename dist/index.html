@@ -1,0 +1,112 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Rocket League Whiteboard</title>
+</head>
+
+<body class="overflow-hidden">
+    <main class="flex fixed h-full w-full">
+        <div class="flex flex-col justify-between w-2/12 h-screen bg-gray-600">
+            <header class="bg-gray-700 font-bold text-center text-white py-2 md:text-base xl:text-2xl">
+                RL Whiteboard
+            </header>
+            <nav class="flex-1 overflow-auto">
+                <ul class="text-white">
+                    <li class="p-1 hover:bg-gray-500 cursor-pointer flex md:flex-col xl:flex-row">
+                        <div class="p-3 font-bold flex-1">Players</div>
+                        <div class="flex-1 flex">
+                            <button onclick="_rlwb.setCarAmount(this, 1)"
+                                class="btn-player flex-1 text-center py-3 hover:bg-blue-900">1</button>
+                            <button onclick="_rlwb.setCarAmount(this, 2)"
+                                class="btn-player flex-1 text-center py-3 hover:bg-blue-900 bg-blue-900">2</button>
+                            <button onclick="_rlwb.setCarAmount(this, 3)"
+                                class="btn-player flex-1 text-center py-3 hover:bg-blue-900">3</button>
+                            <button onclick="_rlwb.setCarAmount(this, 4)"
+                                class="btn-player flex-1 text-center py-3 hover:bg-blue-900">4</button>
+                        </div>
+                    </li>
+                    <li class="p-1 hover:bg-gray-500 cursor-pointer flex md:flex-col xl:flex-row">
+                        <div class="p-3 font-bold flex-1">Balls</div>
+                        <div class="flex-1 flex">
+                            <button onclick="_rlwb.setBallAmount(this, 1)"
+                                class="btn-ball flex-1 text-center py-3 hover:bg-blue-900 bg-blue-900">1
+                            </button>
+                            <button onclick="_rlwb.setBallAmount(this, 2)"
+                                class="btn-ball flex-1 text-center py-3 hover:bg-blue-900">2</button>
+                            <button onclick="_rlwb.setBallAmount(this, 3)"
+                                class="btn-ball flex-1 text-center py-3 hover:bg-blue-900">3</button>
+                            <button onclick="_rlwb.setBallAmount(this, 4)"
+                                class="btn-ball flex-1 text-center py-3 hover:bg-blue-900">4</button>
+                        </div>
+                    </li>
+                    <li class="p-1 hover:bg-gray-500 cursor-pointer flex md:flex-col xl:flex-row">
+                        <div class="p-3 font-bold flex-1">Arrow color</div>
+                        <div class="flex-1 flex">
+                            <button onclick="_rlwb.setArrowColor(this, 'white')"
+                                class="btn-color flex-1 text-center py-3 bg-white text-black">x</button>
+                            <button onclick="_rlwb.setArrowColor(this, 'black')"
+                                class="btn-color flex-1 text-center py-3 bg-black"></button>
+                            <button onclick="_rlwb.setArrowColor(this, '#EF4444')"
+                                class="btn-color flex-1 text-center py-3 bg-red-500 text-black"></button>
+                            <button onclick="_rlwb.setArrowColor(this, '#3B82F6')"
+                                class="btn-color flex-1 text-center py-3 bg-blue-500"></button>
+                        </div>
+                    </li>
+                    <li class="p-1 cursor-pointer flex font-bold">
+                        <button onclick="_rlwb.clearArrows()" class="hover:bg-gray-500 p-3 flex-1" title="Clear Arrows">
+                            <span class="fa fa-eraser"></span>
+                        </button>
+                        <button onclick="_rlwb.undoArrow()" class="hover:bg-gray-500 p-3 flex-1" title="Undo Arrow">
+                            <span class="fa fa-undo"></span>
+                        </button>
+                        <button onclick="_rlwb.resetKickoff()" class="hover:bg-gray-500 p-3 flex-1"
+                            title="Reset Kickoff">
+                            <span class="fa fa-car"></span>
+                        </button>
+                    </li>
+                    <li class="p-1 cursor-pointer flex font-bold">
+                        <button onclick="_rlwb.toggleBoostPads()" class="hover:bg-gray-500 p-3 flex-1"
+                            title="Toggle Boost Pads" id="btnBoostPad">
+                            <span class="fa fa-gas-pump"></span>
+                        </button>
+                        <button onclick="_rlwb.toggleGrid()" class="hover:bg-gray-500 p-3 flex-1" title="Toggle Grid"
+                            id="btnGrid">
+                            <span class="fa fa-border-all"></span>
+                        </button>
+                    </li>
+                    <li class="py-2 flex flex-col text-sm text-gray-200 bg-gray-500">
+                        <div class="mx-auto">
+                            <div><strong>Escape</strong> Clear arrows</div>
+                            <div><strong>Ctrl + Z</strong> Undo arrow</div>
+                            <div><strong>Ctrl + B</strong> Toggle boost pads</div>
+                            <div><strong>Ctrl + G</strong> Toggle grid</div>
+                            <div><strong>Ctrl + R</strong> Reset kickoff</div>
+                        </div>
+                    </li>
+                </ul>
+            </nav>
+            <footer class="mt-auto bg-gray-700 py-2 text-white text-center text-sm">
+                RL Whiteboard v0.2.0 - Ivan Vasquez
+            </footer>
+        </div>
+        <div class="flex flex-col justify-between w-10/12 bg-gray-900">
+            <section class="flex-1 p-1" id="workArea">
+                <canvas id="mapCanvas" class="m-auto w-full h-full" resize></canvas>
+            </section>
+        </div>
+    </main>
+    <div style="display: none;">
+        <!--For some reason, removing this div moves the map image-->
+        <img src="./img/dfh-stadium.png" id="map-dfh">
+        <img src="./img/ball.png" id="ball">
+        <img src="./img/cars/default-orange.png" id="car-default-orange">
+        <img src="./img/cars/default-blue.png" id="car-default-blue">
+    </div>
+    <script src="./js/bundle.js"></script>
+</body>
+
+</html>
