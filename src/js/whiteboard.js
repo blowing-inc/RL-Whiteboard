@@ -17,7 +17,8 @@ class RLWhiteboard {
 				teams: ['orange', 'blue']
 			},
 			map: {
-				model: 'dfh-stadium.png'
+				model: 'dfh-stadium.png',
+				opacity: 0.5,
 			},
 			arrows: {
 				color: 'white',
@@ -144,11 +145,8 @@ class RLWhiteboard {
 		}
 	}
 	render() {		
-		var raster = new Raster(`${this._RL_OPTIONS.path.image}${this._RL_OPTIONS.map.model}`);
-		raster.size = paper.view.viewSize;
-		raster.position = view.center;
-		this._RL_DATA.map = raster;
 		setTimeout(() => {
+			this.renderMap();
 			this.renderGrid();
 			this.renderBoostPads();
 			this.renderBalls();
@@ -186,6 +184,17 @@ class RLWhiteboard {
 		}  
 		this._renderOrder();
 	}
+
+	renderMap() {
+		var raster = new Raster(`${this._RL_OPTIONS.path.image}${this._RL_OPTIONS.map.model}`);
+		raster.size = paper.view.viewSize;
+		raster.position = view.center;
+		raster.opacity = this._RL_OPTIONS.map.opacity;
+		console.log(raster.opacity);
+		this._RL_DATA.map = raster;
+		this._renderOrder();
+	}
+
 	renderGrid() {
 		document.getElementById("btnGrid").classList.toggle("bg-blue-900", this._RL_OPTIONS.grid.show);
 		this._RL_DATA.grid.forEach((grid) => grid.remove());
@@ -244,6 +253,13 @@ class RLWhiteboard {
 		document.querySelectorAll(".btn-color").forEach((element) => { element.innerText = '' });
 		button.innerText = 'x';
 		_rlwb._RL_OPTIONS.arrows.color = color;
+	}
+	setMapOpacity(input) {
+		var output = input.nextElementSibling;
+		output.textContent = input.value;
+		var opacityValue = input.value / 100;
+		_rlwb._RL_OPTIONS.map.opacity = opacityValue;
+		this.renderMap()
 	}
 	setCarAmount(button, amount) {
 		document.querySelector(".btn-player.bg-blue-900").classList.remove("bg-blue-900");

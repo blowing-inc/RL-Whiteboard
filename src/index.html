@@ -56,6 +56,15 @@
                                 class="btn-color flex-1 text-center py-3 bg-blue-500"></button>
                         </div>
                     </li>
+                    <div class="p-1 hover:bg-gray-500 cursor-pointer flex md:flex-col xl:flex-row">
+                        <div class="p-3 font-bold flex-1">Map Opacity</div>
+                        <div class="flex-1 flex items-center">
+                            <input type="range" min="0" max="100" value="100" class="slider flex-1" oninput="_rlwb.setMapOpacity(this)">
+                            <output class="ml-2">100</output>
+                        </div>
+                    </div>
+                    <li>
+                    </li>
                     <li class="p-1 cursor-pointer flex font-bold">
                         <button onclick="_rlwb.clearArrows()" class="hover:bg-gray-500 p-3 flex-1" title="Clear Arrows">
                             <span class="fa fa-eraser"></span>
@@ -93,7 +102,7 @@
                 RL Whiteboard v0.2.0 - Ivan Vasquez
             </footer>
         </div>
-        <div class="flex flex-col justify-between w-10/12 bg-gray-900">
+        <div class="flex flex-col justify-between w-10/12 bg-slate-200">
             <section class="flex-1 p-1" id="workArea">
                 <canvas id="mapCanvas" class="m-auto w-full h-full" resize></canvas>
             </section>
